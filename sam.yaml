@@ -22,6 +22,7 @@ Resources:
   RDSCluster:
     Type: "AWS::RDS::DBCluster"
     Properties:
+      Engine: aurora
       DatabaseName: search
       MasterUsername: search
       MasterUserPassword: search
