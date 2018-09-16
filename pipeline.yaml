@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 Parameters:
     ServiceName:
         Type: String
-        Default: TimeService
+        Default: Search
         Description: Name for the service, used in the code repository, Lambda function, and pipeline names
 Resources:
     # Code repository for the service
