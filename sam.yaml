@@ -25,7 +25,7 @@ Resources:
       Engine: aurora
       DatabaseName: search
       MasterUsername: search
-      MasterUserPassword: search
+      MasterUserPassword: searchpassword123
       DBClusterParameterGroupName:
         Ref: RDSDBClusterParameterGroup
 
