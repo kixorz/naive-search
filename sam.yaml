@@ -11,6 +11,40 @@ Parameters:
     Description: Stage that can be added to resource names
 
 Resources:
+  RDSDBClusterParameterGroup:
+    Type: AWS::RDS::DBClusterParameterGroup
+    Properties:
+      Family: aurora5.6
+      Parameters:
+        time_zone: US/Eastern
+
+  RDSCluster:
+    Type: "AWS::RDS::DBCluster"
+    Properties:
+      DatabaseName: search
+      MasterUsername: search
+      MasterUserPassword: search
+      DBClusterParameterGroupName:
+        Ref: RDSDBClusterParameterGroup
+
+  RDSDBParameterGroup:
+    Type: AWS::RDS::DBParameterGroup
+    Properties:
+      Family: aurora5.6
+      Parameters:
+        sql_mode: IGNORE_SPACE
+
+  RDSDBInstance1:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBParameterGroupName:
+        Ref: RDSDBParameterGroup
+      Engine: aurora
+      DBClusterIdentifier:
+        Ref: RDSCluster
+      PubliclyAccessible: true
+      DBInstanceClass: db.t2.micro
+
   SearchFunction:
     Type: AWS::Serverless::Function
     Properties:
