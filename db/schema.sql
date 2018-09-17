@@ -5,3 +5,5 @@ CREATE TABLE IF NOT EXISTS pages (
   description TEXT NOT NULL,
   PRIMARY KEY (page_id)
 );
+
+#LOAD DATA LOCAL INFILE 'test.csv' INTO TABLE pages (url, title, description)
