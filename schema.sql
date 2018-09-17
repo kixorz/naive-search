@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS pages (
+  page_id INT AUTO_INCREMENT,
+  url TEXT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  PRIMARY KEY (page_id)
+);
