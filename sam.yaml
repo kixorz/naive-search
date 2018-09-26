@@ -48,6 +48,29 @@ Resources:
       PubliclyAccessible: true
       DBInstanceClass: db.t2.small
 
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Import instance security group
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-04681a1dbd79675a5
+      KeyName: asearch
+      InstanceType: t2.micro
+      SecurityGroups:
+        - !Ref InstanceSecurityGroup
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          echo "test" > success.txt
+
   SearchFunction:
     Type: AWS::Serverless::Function
     Properties:
