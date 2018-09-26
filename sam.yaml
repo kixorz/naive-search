@@ -69,7 +69,10 @@ Resources:
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
-          echo "test" > success.txt
+          sudo yum install mysql -y
+          cd /tmp
+          
+
 
   SearchFunction:
     Type: AWS::Serverless::Function

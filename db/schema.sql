@@ -7,3 +7,4 @@ CREATE TABLE IF NOT EXISTS pages (
 );
 
 #LOAD DATA LOCAL INFILE 'test.csv' INTO TABLE pages (url, title, description)
+#LOAD DATA LOCAL INFILE 'search' INTO TABLE pages (url, title, description) FIELDS TERMINATED BY ',' ENCLOSED BY '"'
