@@ -27,4 +27,16 @@ mysqlsh --database=search --user=search --password=searchpassword123 --host=sear
 streaming from s3
 
 curl -L https://commoncrawl.s3.amazonaws.com/crawl-data/CC-MAIN-2018-34/wat.paths.gz | zcat | awk '{print "https://commoncrawl.s3.amazonaws.com/" $0}' > paths.txt
-cat paths.txt | head -n 1 | xargs curl -s -L | zcat | ./warsql/warsql > search
+cat paths.txt | head -n 1 | xargs curl -s -L | zcat | ./warsql/warsql-ec2 > search
+
+
+split dataset
+
+sed 'n; d' paths.txt > paths1.txt
+sed '1d; n; d' paths.txt > paths2.txt
+
+
+mkfifo search
+mysql --user=search --password=searchpassword123 --host= search -e "LOAD DATA LOCAL INFILE 'search' INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)"
+
+mysql --user=search --password=searchpassword123 --host=sr1x44e9anx4ewu.cgec7ucnhams.us-east-1.rds.amazonaws.com search -e "LOAD DATA LOCAL INFILE 'search' INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)"

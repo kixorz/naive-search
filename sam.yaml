@@ -63,14 +63,16 @@ Resources:
     Properties:
       ImageId: ami-04681a1dbd79675a5
       KeyName: asearch
-      InstanceType: m5.large
+      InstanceType: c5.large
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
+          sudo yum groupinstall "Development Tools" -y
           sudo yum install mysql -y
           cd /tmp
+          curl -L https://commoncrawl.s3.amazonaws.com/crawl-data/CC-MAIN-2018-34/wat.paths.gz | zcat | awk '{print "https://commoncrawl.s3.amazonaws.com/" $0}' > paths.txt
 
   SearchFunction:
     Type: AWS::Serverless::Function
