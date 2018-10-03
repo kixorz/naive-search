@@ -14,11 +14,6 @@ phases:
       - echo "Starting build `date` in `pwd`"
       - echo "Building SAM template"
       - aws cloudformation package --template-file sam.yaml --s3-bucket $BUILD_OUTPUT_BUCKET --output-template-file output_sam.yaml
-      - echo "Building warsql tool"
-      - cd warsql
-      - cmake .
-      - make
-      - #TODO deploy warsql on instance
   post_build:
     commands:
       - echo "build completed on `date`"

@@ -46,7 +46,7 @@ Resources:
       DBClusterIdentifier:
         Ref: RDSCluster
       PubliclyAccessible: true
-      DBInstanceClass: db.t2.small
+      DBInstanceClass: db.r4.large
 
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -63,7 +63,7 @@ Resources:
     Properties:
       ImageId: ami-04681a1dbd79675a5
       KeyName: asearch
-      InstanceType: t2.micro
+      InstanceType: m5.large
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       UserData:
@@ -71,8 +71,6 @@ Resources:
           #!/bin/bash
           sudo yum install mysql -y
           cd /tmp
-          
-
 
   SearchFunction:
     Type: AWS::Serverless::Function
