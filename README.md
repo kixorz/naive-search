@@ -19,10 +19,6 @@ mysql --user=search --password=searchpassword123 --host=search-stack-dev-rdsclus
 
 echo '"http://www.google.com/","Google","Search Engine"' >> search
 
-mysqlsh --database=search --user=search --password=searchpassword123 --host=search-stack-dev-rdscluster-llus43xxjts8.cluster-cgec7ucnhams.us-east-1.rds.amazonaws.com --sql
-
-
-
 
 streaming from s3
 

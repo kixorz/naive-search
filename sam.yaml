@@ -74,6 +74,12 @@ Resources:
           cd /tmp
           curl -L https://commoncrawl.s3.amazonaws.com/crawl-data/CC-MAIN-2018-34/wat.paths.gz | zcat | awk '{print "https://commoncrawl.s3.amazonaws.com/" $0}' > paths.txt
 
+          cat > firestarter <<EOF
+          #!/bin/bash
+          cat paths.txt | head -n 1 | xargs curl -s -L | zcat | ./warsql-ec2-optimized > output.txt
+          EOF
+          chmod +x ./firestarter
+
   SearchFunction:
     Type: AWS::Serverless::Function
     Properties:
