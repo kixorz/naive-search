@@ -67,23 +67,27 @@ Resources:
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       UserData:
-        Fn::Base64: !Sub |
-          #!/bin/bash
-          sudo yum groupinstall "Development Tools" -y
-          sudo yum install mysql -y
-          cd /tmp
-          curl -L https://commoncrawl.s3.amazonaws.com/crawl-data/CC-MAIN-2018-34/wat.paths.gz | zcat | awk '{print "https://commoncrawl.s3.amazonaws.com/" $0}' > urls.txt
+        Fn::Base64:
+          Fn::Sub:
+            - #!/bin/bash
+              sudo yum install mysql -y
+              cd /tmp
+              curl -L https://commoncrawl.s3.amazonaws.com/crawl-data/CC-MAIN-2018-34/wat.paths.gz | zcat | awk '{print "https://commoncrawl.s3.amazonaws.com/" $0}' > urls.txt
 
-          $CORES=`grep -c ^processor /proc/cpuinfo`
-          $URLS=`wc -l < urls.txt`
-          $JOBS=${URLS}/${CORES}
-          split --lines=${JOBS} --numeric-suffixes urls.txt job
+              $CORES=`grep -c ^processor /proc/cpuinfo`
+              $URLS=`wc -l < urls.txt`
+              $JOBS=${URLS}/${CORES}
+              split --lines=${JOBS} --numeric-suffixes urls.txt job
 
-          for file in job*;
-          do
-            echo ${file}
-            cat ${file} | head -n 2 | xargs curl -s -L | zcat | ./warsql-ec2-optimized > output_${file}.txt &
-          done
+              for file in job*;
+              do
+                echo ${file}
+                mkfifo ${file}_fifo
+                mysql --user=search --password=searchpassword123 --host=${rds} search -e "LOAD DATA LOCAL INFILE '${file}_fifo' INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)" &
+                cat ${file} | head -n 2 | xargs curl -s -L | zcat | ./warsql-ec2-optimized > output_${file}.txt &
+                rm ${file}_fifo
+              done
+            - { rds: !GetAtt RDSDBInstance1.Endpoint.Address }
 
   SearchFunction:
     Type: AWS::Serverless::Function
