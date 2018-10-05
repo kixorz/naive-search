@@ -83,11 +83,10 @@ Resources:
               do
                 echo ${file}
                 mkfifo ${file}_fifo
-                mysql --user=search --password=searchpassword123 --host=${rds} search -e "LOAD DATA LOCAL INFILE '${file}_fifo' INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)" &
-                cat ${file} | head -n 2 | xargs curl -s -L | zcat | ./warsql-ec2-optimized > output_${file}.txt &
-                rm ${file}_fifo
+                mysql --user=search --password=searchpassword123 --host=${RDS} search -e "LOAD DATA LOCAL INFILE '${file}_fifo' INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)" &
+                cat ${file} | head -n 2 | xargs curl -s -L | zcat | ./warsql-ec2-optimized > output_${file}.txt
               done
-            - { rds: !GetAtt RDSDBInstance1.Endpoint.Address }
+            - RDS: Fn::GetAtt: [ RDSDBInstance1, Endpoint.Address ]
 
   SearchFunction:
     Type: AWS::Serverless::Function
