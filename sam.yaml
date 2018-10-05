@@ -69,7 +69,7 @@ Resources:
       UserData:
         Fn::Base64: !Join
           - ''
-          - - !Sub |
+          - - |
             #!/bin/bash
             sudo yum install mysql -y
             cd /tmp
@@ -80,7 +80,7 @@ Resources:
             $JOBS=${URLS}/${CORES}
             split --lines=${JOBS} --numeric-suffixes urls.txt job
           - - !Join [ '', [ '$RDS=', Fn::GetAtt: [ RDSDBInstance1, Endpoint.Address ], '\n' ] ]
-          - - !Sub |
+          - - |
             for file in job*;
             do
               echo ${file}
