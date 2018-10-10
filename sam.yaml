@@ -82,7 +82,7 @@ Resources:
           for file in job*;
           do
             echo $file
-            PIPE=$file."_fifo"
+            PIPE=$file_fifo"
             mkfifo $PIPE
             mysql --user=search --password=searchpassword123 --host=$RDS search -e "LOAD DATA LOCAL INFILE '$PIPE' INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)" &
             cat $file | head -n 2 | xargs curl -s -L | zcat | ./warsql-ec2-optimized > output_$file.txt
