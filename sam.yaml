@@ -79,8 +79,8 @@ Resources:
               $URLS=`wc -l < urls.txt`
               $JOBS=${URLS}/${CORES}
               split --lines=${JOBS} --numeric-suffixes urls.txt job
-          - - !Join [ '', [ '$RDS=', !GetAtt [ RDSDBInstance1, Endpoint.Address ], '\n' ] ]
-          - - |
+            - !Join [ '', [ '$RDS=', !GetAtt [ RDSDBInstance1, Endpoint.Address ], '\n' ] ]
+            - |
               for file in job*;
               do
                 echo ${file}
