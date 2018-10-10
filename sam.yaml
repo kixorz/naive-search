@@ -93,11 +93,12 @@ Resources:
 
           for file in job*;
           do
-            echo $file
-            PIPE=$file_fifo"
+            echo "File: "$file
+            PIPE=fifo_$file
             mkfifo $PIPE
-            mysql --user=search --password=searchpassword123 --host=$RDS search -e "LOAD DATA LOCAL INFILE '$PIPE' INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)" &
-            cat $file | head -n 2 | xargs curl -s -L | zcat | ./warsql-ec2-optimized > output_$file.txt
+            SQL="LOAD DATA LOCAL INFILE '$PIPE' INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)"
+            mysql --user=search --password=searchpassword123 --host=$RDS search -e "$SQL" &
+            cat $file | head -n 2 | xargs curl -s -L | zcat | ./warsql-ec2-optimized > $file_output.txt
           done
 
   SearchFunction:
