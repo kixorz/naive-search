@@ -5,6 +5,10 @@ Parameters:
         Default: Search
         Description: Name for the service, used in the code repository, Lambda function, and pipeline names
 Resources:
+    # Tools bucket
+    ToolsBucket:
+        Type: AWS::S3::Bucket
+
     # Code repository for the service
     CodeRepository:
         Type: AWS::CodeCommit::Repository
@@ -60,6 +64,8 @@ Resources:
                 ComputeType: BUILD_GENERAL1_SMALL
                 Image: aws/codebuild/eb-nodejs-4.4.6-amazonlinux-64:2.1.3
                 EnvironmentVariables:
+                  - Name: TOOLS_BUCKET
+                    Value: !Ref ToolsBucket
                   - Name: BUILD_OUTPUT_BUCKET
                     Value: !Ref BuildArtifactsBucket
             ServiceRole: !GetAtt CodeBuildServiceRole.Arn
@@ -187,7 +193,12 @@ Resources:
                         ChangeSetName: !Sub '${ServiceName}-ChangeSet-Dev'
                         TemplatePath: BuiltZip::output_sam.yaml
                         Capabilities: CAPABILITY_IAM
-                        ParameterOverrides: '{ "Stage": "dev" }'
+                        ParameterOverrides: !Sub |
+                          {
+                            "Stage": "dev",
+                            "ToolsBucketArn": "${ToolsBucket.Arn}",
+                            "ToolsBucketDomain": "${ToolsBucket.DomainName}"
+                          }
                       InputArtifacts:
                         - Name: BuiltZip
                       RunOrder: 1
@@ -227,7 +238,12 @@ Resources:
                         ChangeSetName: !Sub '${ServiceName}-ChangeSet-Prod'
                         TemplatePath: BuiltZip::output_sam.yaml
                         Capabilities: CAPABILITY_IAM
-                        ParameterOverrides: '{ "Stage": "prod" }'
+                        ParameterOverrides: !Sub |
+                          {
+                            "Stage": "prod",
+                            "ToolsBucketArn": "${ToolsBucket.Arn}",
+                            "ToolsBucket": "${ToolsBucket.DomainName}"
+                          }
                       InputArtifacts:
                         - Name: BuiltZip
                       RunOrder: 2
