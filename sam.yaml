@@ -9,6 +9,12 @@ Parameters:
       - prod
     Default: dev
     Description: Stage that can be added to resource names
+  ToolsBucketArn:
+    Type: String
+    Description: Tools bucket ARN
+  ToolsBucketDomain:
+    Type: String
+    Description: Tools bucket domain
 
 Resources:
   RDSDBClusterParameterGroup:
@@ -71,13 +77,19 @@ Resources:
           #!/bin/bash
           sudo yum install mysql -y
           cd /tmp
+
+          wget https://${ToolsBucketDomain}/schema.sql
+          wget https://${ToolsBucketDomain}/warsql-ec2-optimized
+
           curl -s -L https://commoncrawl.s3.amazonaws.com/crawl-data/CC-MAIN-2018-34/wat.paths.gz | zcat | awk '{print "https://commoncrawl.s3.amazonaws.com/" $0}' > urls.txt
 
           CORES=`grep -c ^processor /proc/cpuinfo`
           URLS=`wc -l < urls.txt`
           JOBS=$((URLS / CORES))
           split --lines=$JOBS --numeric-suffixes urls.txt job
+
           RDS=${RDSDBInstance1.Endpoint.Address}
+          mysql --user=search --password=searchpassword123 --host=$RDS search < schema.sql
 
           for file in job*;
           do
