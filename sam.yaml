@@ -71,18 +71,18 @@ Resources:
           #!/bin/bash
           sudo yum install mysql -y
           cd /tmp
-          curl -L https://commoncrawl.s3.amazonaws.com/crawl-data/CC-MAIN-2018-34/wat.paths.gz | zcat | awk '{print "https://commoncrawl.s3.amazonaws.com/" $0}' > urls.txt
+          curl -s -L https://commoncrawl.s3.amazonaws.com/crawl-data/CC-MAIN-2018-34/wat.paths.gz | zcat | awk '{print "https://commoncrawl.s3.amazonaws.com/" $0}' > urls.txt
 
-          $CORES=`grep -c ^processor /proc/cpuinfo`
-          $URLS=`wc -l < urls.txt`
-          $JOBS=$URLS/$CORES
+          CORES=`grep -c ^processor /proc/cpuinfo`
+          URLS=`wc -l < urls.txt`
+          JOBS=$((URLS / CORES))
           split --lines=$JOBS --numeric-suffixes urls.txt job
-          $RDS=${RDSDBInstance1.Endpoint.Address}
+          RDS=${RDSDBInstance1.Endpoint.Address}
 
           for file in job*;
           do
             echo $file
-            $PIPE=$file."_fifo"
+            PIPE=$file."_fifo"
             mkfifo $PIPE
             mysql --user=search --password=searchpassword123 --host=$RDS search -e "LOAD DATA LOCAL INFILE '$PIPE' INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)" &
             cat $file | head -n 2 | xargs curl -s -L | zcat | ./warsql-ec2-optimized > output_$file.txt
