@@ -93,7 +93,7 @@ Resources:
     Type: AWS::IAM::InstanceProfile
     Properties:
       Roles:
-        - !GetAtt EC2InstanceRole.Arn
+        - !Ref EC2InstanceRole
 
   EC2Instance:
     Type: AWS::EC2::Instance
