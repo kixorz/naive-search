@@ -99,7 +99,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: ami-04681a1dbd79675a5
-      IamInstanceProfile: !GetAtt: EC2InstanceProfile.Arn
+      IamInstanceProfile: !GetAtt EC2InstanceProfile.Arn
       KeyName: asearch
       InstanceType: c5.large
       SecurityGroups:
