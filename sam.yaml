@@ -92,6 +92,7 @@ Resources:
   EC2InstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
+      InstanceProfileName: SearchIngest
       Roles:
         - !Ref EC2InstanceRole
 
@@ -99,7 +100,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: ami-04681a1dbd79675a5
-      IamInstanceProfile: !Ref EC2InstanceProfile
+      IamInstanceProfile: SearchIngest
       KeyName: asearch
       InstanceType: c5.large
       SecurityGroups:
