@@ -48,6 +48,7 @@ Resources:
                       - Effect: Allow
                         Resource:
                           - !Sub 'arn:aws:s3:::${BuildArtifactsBucket}/*'
+                          - !Sub 'arn:aws:s3:::${ToolsBucket}/*'
                         Action:
                           - 's3:GetObject'
                           - 's3:GetObjectVersion'
