@@ -12,9 +12,9 @@ Parameters:
   ToolsBucketArn:
     Type: String
     Description: Tools bucket ARN
-  ToolsBucketDomain:
+  ToolsBucket:
     Type: String
-    Description: Tools bucket domain
+    Description: Tools bucket
 
 Resources:
   RDSDBClusterParameterGroup:
@@ -111,8 +111,8 @@ Resources:
           sudo yum install mysql -y
           cd /tmp
 
-          wget https://${ToolsBucketDomain}/schema.sql
-          wget https://${ToolsBucketDomain}/warsql-ec2-optimized
+          s3 cp s3://${ToolsBucket}/schema.sql .
+          s3 cp s3://${ToolsBucket}/warsql-ec2-optimized .
 
           curl -s -L https://commoncrawl.s3.amazonaws.com/crawl-data/CC-MAIN-2018-34/wat.paths.gz | zcat | awk '{print "https://commoncrawl.s3.amazonaws.com/" $0}' > urls.txt
 
