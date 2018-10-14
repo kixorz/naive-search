@@ -1,4 +1,4 @@
-DROP TABLE pages;
+DROP TABLE IF EXISTS pages;
 
 CREATE TABLE pages (
   page_id INT AUTO_INCREMENT,
