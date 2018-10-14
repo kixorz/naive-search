@@ -198,7 +198,7 @@ Resources:
                           {
                             "Stage": "dev",
                             "ToolsBucketArn": "${ToolsBucket.Arn}",
-                            "ToolsBucketDomain": "${ToolsBucket.DomainName}"
+                            "ToolsBucket": "${ToolsBucket}"
                           }
                       InputArtifacts:
                         - Name: BuiltZip
@@ -243,7 +243,7 @@ Resources:
                           {
                             "Stage": "prod",
                             "ToolsBucketArn": "${ToolsBucket.Arn}",
-                            "ToolsBucket": "${ToolsBucket.DomainName}"
+                            "ToolsBucket": "${ToolsBucket}"
                           }
                       InputArtifacts:
                         - Name: BuiltZip
