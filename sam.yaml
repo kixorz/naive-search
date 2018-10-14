@@ -49,7 +49,7 @@ Resources:
       DBClusterIdentifier:
         Ref: RDSCluster
       PubliclyAccessible: true
-      DBInstanceClass: db.r4.large
+      DBInstanceClass: db.r4.xlarge
 
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -99,7 +99,7 @@ Resources:
       ImageId: ami-04681a1dbd79675a5
       IamInstanceProfile: !Ref EC2InstanceProfile
       KeyName: asearch
-      InstanceType: c5.9xlarge
+      InstanceType: c5.18xlarge
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       UserData:
