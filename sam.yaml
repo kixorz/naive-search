@@ -107,6 +107,7 @@ Resources:
           #!/bin/bash
           sudo yum install mysql -y
           cd /tmp
+          rm -f *
 
           aws s3 cp s3://${ToolsBucket}/schema.sql .
           aws s3 cp s3://${ToolsBucket}/warsql-ec2-optimized .
