@@ -197,7 +197,6 @@ Resources:
                         ParameterOverrides: !Sub |
                           {
                             "Stage": "dev",
-                            "ToolsBucketArn": "${ToolsBucket.Arn}",
                             "ToolsBucket": "${ToolsBucket}"
                           }
                       InputArtifacts:
@@ -242,7 +241,6 @@ Resources:
                         ParameterOverrides: !Sub |
                           {
                             "Stage": "prod",
-                            "ToolsBucketArn": "${ToolsBucket.Arn}",
                             "ToolsBucket": "${ToolsBucket}"
                           }
                       InputArtifacts:
