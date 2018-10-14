@@ -36,3 +36,6 @@ mkfifo search
 mysql --user=search --password=searchpassword123 --host= search -e "LOAD DATA LOCAL INFILE 'search' INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)"
 
 mysql --user=search --password=searchpassword123 --host=sr1x44e9anx4ewu.cgec7ucnhams.us-east-1.rds.amazonaws.com search -e "LOAD DATA LOCAL INFILE 'search' INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)"
+
+
+curl http://169.254.169.254/latest/user-data > test
