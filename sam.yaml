@@ -99,7 +99,7 @@ Resources:
       ImageId: ami-04681a1dbd79675a5
       IamInstanceProfile: !Ref EC2InstanceProfile
       KeyName: asearch
-      InstanceType: c5.large
+      InstanceType: c5.9xlarge
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       UserData:
