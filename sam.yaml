@@ -49,7 +49,7 @@ Resources:
       DBClusterIdentifier:
         Ref: RDSCluster
       PubliclyAccessible: true
-      DBInstanceClass: db.r4.xlarge
+      DBInstanceClass: db.r4.large
 
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -99,7 +99,7 @@ Resources:
       ImageId: ami-04681a1dbd79675a5
       IamInstanceProfile: !Ref EC2InstanceProfile
       KeyName: asearch
-      InstanceType: c5.18xlarge
+      InstanceType: c5.large
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       UserData:
@@ -130,7 +130,7 @@ Resources:
             mkfifo $PIPE
             SQL="LOAD DATA LOCAL INFILE '$PIPE' INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)"
             mysql --user=search --password=searchpassword123 --host=$RDS search -e "$SQL" &
-            cat $file | xargs curl -s -L | zcat | ./warsql-ec2-optimized > $PIPE &
+            cat $file | head -n 1 | xargs curl -s -L | zcat | ./warsql-ec2-optimized > $PIPE &
           done
 
   SearchFunction:
