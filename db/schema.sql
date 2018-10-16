@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS pages (
   url TEXT NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
-  PRIMARY KEY (page_id)
+  PRIMARY KEY (page_id),
+  UNIQUE KEY (url)
 );
 
 ALTER TABLE pages ADD FULLTEXT (url, title, description);

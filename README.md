@@ -39,3 +39,5 @@ mysql --user=search --password=searchpassword123 --host=sr1x44e9anx4ewu.cgec7ucn
 
 
 curl http://169.254.169.254/latest/user-data > test
+
+first two batches give 80625 records

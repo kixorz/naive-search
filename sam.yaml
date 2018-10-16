@@ -49,7 +49,7 @@ Resources:
       DBClusterIdentifier:
         Ref: RDSCluster
       PubliclyAccessible: true
-      DBInstanceClass: db.r4.large
+      DBInstanceClass: db.r4.2xlarge
 
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -99,7 +99,7 @@ Resources:
       ImageId: ami-04681a1dbd79675a5
       IamInstanceProfile: !Ref EC2InstanceProfile
       KeyName: asearch
-      InstanceType: c5.large
+      InstanceType: c5.18xlarge
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       UserData:
@@ -123,14 +123,21 @@ Resources:
           RDS=${RDSDBInstance1.Endpoint.Address}
           mysql --user=search --password=searchpassword123 --host=$RDS search < schema.sql
 
+          function each_file {
+            while read in;
+            do
+              mysql --user=search --password=searchpassword123 --host=$RDS search -e "$3" &
+              curl -s -L "$in" | zcat | ./warsql-ec2-optimized > $1;
+            done < $2
+          }
+
           for file in job*;
           do
             echo "File: "$file
             PIPE=fifo_$file
             mkfifo $PIPE
-            SQL="LOAD DATA LOCAL INFILE '$PIPE' INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)"
-            mysql --user=search --password=searchpassword123 --host=$RDS search -e "$SQL" &
-            cat $file | head -n 1 | xargs curl -s -L | zcat | ./warsql-ec2-optimized > $PIPE &
+            SQL="LOAD DATA LOCAL INFILE '$PIPE' IGNORE INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)"
+            each_file "$PIPE" "$file" "$SQL" &
           done
 
   SearchFunction:
