@@ -23,7 +23,7 @@ echo '"http://www.google.com/","Google","Search Engine"' >> search
 streaming from s3
 
 curl -L https://commoncrawl.s3.amazonaws.com/crawl-data/CC-MAIN-2018-34/wat.paths.gz | zcat | awk '{print "https://commoncrawl.s3.amazonaws.com/" $0}' > paths.txt
-cat paths.txt | head -n 1 | xargs curl -s -L | zcat | ./warsql/warsql-ec2 > search
+cat urls.txt | head -n 1 | xargs curl -s -L | zcat | ./warsql search
 
 
 split dataset

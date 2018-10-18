@@ -127,18 +127,14 @@ Resources:
           function each_file {
             while read in;
             do
-              mysql --user=search --password=searchpassword123 --host=$RDS search -e "$SQL" &
-              curl -s -L "$in" | zcat | ./warsql-ec2-optimized > $1;
+              curl -s -L "$in" | zcat | ./warsql-ec2-optimized $RDS search searchpassword123 search;
             done < $2
           }
 
           for file in job*;
           do
             echo "File: "$file
-            PIPE=fifo_$file
-            mkfifo $PIPE
-            SQL="LOAD DATA LOCAL INFILE '$PIPE' IGNORE INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)"
-            each_file "$PIPE" "$file" &
+            each_file "$file" &
           done
 
   SearchFunction:
