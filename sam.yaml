@@ -127,6 +127,7 @@ Resources:
           function each_file {
             while read in;
             do
+              mysql --user=search --password=searchpassword123 --host=$RDS search -e "$SQL" &
               curl -s -L "$in" | zcat | ./warsql-ec2-optimized > $1;
             done < $2
           }
@@ -137,7 +138,6 @@ Resources:
             PIPE=fifo_$file
             mkfifo $PIPE
             SQL="LOAD DATA LOCAL INFILE '$PIPE' IGNORE INTO TABLE pages FIELDS TERMINATED BY ',' ENCLOSED BY '\"' (url, title, description)"
-            mysql --user=search --password=searchpassword123 --host=$RDS search -e "$SQL" &
             each_file "$PIPE" "$file" &
           done
 
