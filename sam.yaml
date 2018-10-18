@@ -118,7 +118,7 @@ Resources:
 
           CORES=`grep -c ^processor /proc/cpuinfo`
           URLS=`wc -l < urls.txt`
-          JOBS=$((URLS / (CORES * 2)))
+          JOBS=$((URLS / (CORES / 2)))
           split --lines=$JOBS --numeric-suffixes urls.txt job
 
           RDS=${RDSDBInstance1.Endpoint.Address}
@@ -128,7 +128,7 @@ Resources:
             while read in;
             do
               curl -s -L "$in" | zcat | ./warsql-ec2-optimized $RDS search searchpassword123 search;
-            done < $2
+            done < $1
           }
 
           for file in job*;
