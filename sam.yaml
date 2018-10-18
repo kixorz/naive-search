@@ -118,7 +118,7 @@ Resources:
 
           CORES=`grep -c ^processor /proc/cpuinfo`
           URLS=`wc -l < urls.txt`
-          JOBS=$((URLS / CORES))
+          JOBS=$((URLS / (CORES * 2)))
           split --lines=$JOBS --numeric-suffixes urls.txt job
 
           RDS=${RDSDBInstance1.Endpoint.Address}
