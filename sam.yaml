@@ -49,7 +49,7 @@ Resources:
       DBClusterIdentifier:
         Ref: RDSCluster
       PubliclyAccessible: true
-      DBInstanceClass: db.r4.large
+      DBInstanceClass: db.r4.xlarge
 
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -100,7 +100,7 @@ Resources:
       ImageId: ami-04681a1dbd79675a5
       IamInstanceProfile: !Ref EC2InstanceProfile
       KeyName: asearch
-      InstanceType: c5.xlarge
+      InstanceType: c5.8xlarge
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       UserData:
@@ -118,7 +118,7 @@ Resources:
 
           CORES=`grep -c ^processor /proc/cpuinfo`
           URLS=`wc -l < urls.txt`
-          JOBS=$((URLS / (CORES / 2)))
+          JOBS=$((URLS / (CORES * 3)))
           split --lines=$JOBS --numeric-suffixes urls.txt job
 
           RDS=${RDSDBInstance1.Endpoint.Address}
