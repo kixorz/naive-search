@@ -49,7 +49,7 @@ Resources:
       DBClusterIdentifier:
         Ref: RDSCluster
       PubliclyAccessible: true
-      DBInstanceClass: db.r4.xlarge
+      DBInstanceClass: db.t2.medium
 
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -100,7 +100,7 @@ Resources:
       ImageId: ami-04681a1dbd79675a5
       IamInstanceProfile: !Ref EC2InstanceProfile
       KeyName: asearch
-      InstanceType: c5.9xlarge
+      InstanceType: db.t2.medium
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       UserData:
@@ -144,6 +144,12 @@ Resources:
       CodeUri: app/
       Runtime: nodejs4.3
       Policies: AWSLambdaBasicExecutionRole
+      Environment:
+        Variables:
+          DB_HOST: !Sub '${RDSDBInstance1.Endpoint.Address}'
+          DB_DB: search
+          DB_USER: search
+          DB_PASS: searchpassword123
       Events:
         ApiEventSource:
           Type: Api

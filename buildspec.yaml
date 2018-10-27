@@ -11,10 +11,10 @@ phases:
       - echo "dependencies install completed `date`"
   build:
     commands:
-      - echo "Starting build `date` in `pwd`"
-      - echo "Building SAM template"
+      - echo "Copying tools"
       - aws s3 cp db/schema.sql s3://$TOOLS_BUCKET
       - aws s3 cp import/warsql-ec2-optimized s3://$TOOLS_BUCKET
+      - echo "Building SAM template"
       - aws cloudformation package --template-file sam.yaml --s3-bucket $BUILD_OUTPUT_BUCKET --output-template-file output_sam.yaml
   post_build:
     commands:
