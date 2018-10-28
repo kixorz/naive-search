@@ -1,7 +1,7 @@
 var serverless = require('aws-serverless-express');
 var app = require('./app');
 
-const binaryMimeTypes = [
+var binaryMimeTypes = [
 	'application/javascript',
 	'application/json',
 	'application/octet-stream',
