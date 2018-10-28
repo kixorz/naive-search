@@ -140,9 +140,9 @@ Resources:
   SearchFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.handler
+      Handler: lambda.handler
       CodeUri: app/
-      Runtime: nodejs4.3
+      Runtime: nodejs8.10
       Policies: AWSLambdaBasicExecutionRole
       Environment:
         Variables:
