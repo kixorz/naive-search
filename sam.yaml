@@ -100,7 +100,7 @@ Resources:
       ImageId: ami-04681a1dbd79675a5
       IamInstanceProfile: !Ref EC2InstanceProfile
       KeyName: asearch
-      InstanceType: db.t2.medium
+      InstanceType: t2.medium
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       UserData:
