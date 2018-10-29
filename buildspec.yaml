@@ -3,12 +3,11 @@ version: 0.1
 phases:
   install:
     commands:
-      - echo "nothing to do in install"
+      - echo "No install commands"
   pre_build:
     commands:
-      - echo "Installing dependencies - `pwd`"
+      - echo "Installing dependencies"
       - cd app && npm install
-      - echo "dependencies install completed `date`"
   build:
     commands:
       - echo "Copying tools"
@@ -18,7 +17,7 @@ phases:
       - aws cloudformation package --template-file sam.yaml --s3-bucket $BUILD_OUTPUT_BUCKET --output-template-file output_sam.yaml
   post_build:
     commands:
-      - echo "build completed on `date`"
+      - echo "Build finished"
 
 artifacts:
   files:
