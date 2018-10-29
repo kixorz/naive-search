@@ -3,8 +3,7 @@ var router = express.Router();
 
 var search = require('../models/search');
 
-router.get('/search', function (req, res, next) {
-	search();
+router.get('/', function (req, res, next) {
 	res.render('index', {title: 'Search'});
 });
 
