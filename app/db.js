@@ -1,4 +1,4 @@
-var config = require('config-node');
+var config = require('./config');
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
@@ -10,8 +10,11 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-process.on('exit', function() {
+var close = function() {
+	console.info('Closing DB connection');
 	connection.end();
-});
+};
+
+process.on('exit', close);
 
 module.exports = connection;
