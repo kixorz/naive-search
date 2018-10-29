@@ -141,6 +141,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: lambda.handler
+      Timeout: 30
       CodeUri: app/
       Runtime: nodejs8.10
       Policies: AWSLambdaBasicExecutionRole
