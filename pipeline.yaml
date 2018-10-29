@@ -196,7 +196,7 @@ Resources:
                         Capabilities: CAPABILITY_IAM
                         ParameterOverrides: !Sub |
                           {
-                            "Stage": "dev",
+                            "Stage": "development",
                             "ToolsBucket": "${ToolsBucket}"
                           }
                       InputArtifacts:
@@ -240,7 +240,7 @@ Resources:
                         Capabilities: CAPABILITY_IAM
                         ParameterOverrides: !Sub |
                           {
-                            "Stage": "prod",
+                            "Stage": "production",
                             "ToolsBucket": "${ToolsBucket}"
                           }
                       InputArtifacts:
