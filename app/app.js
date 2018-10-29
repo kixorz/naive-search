@@ -22,6 +22,9 @@ app.use(middleware.eventContext());
 var indexRouter = require('./routes/index');
 app.use('/', indexRouter);
 
+var searchRouter = require('./routes/search');
+app.use('/search', searchRouter);
+
 // Enable CORS for all methods
 app.use(function (req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
