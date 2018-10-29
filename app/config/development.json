@@ -1,6 +1,6 @@
 {
-	db_host: '',
-	db_db: 'search',
-	db_user: 'search',
-	db_pass: 'searchpassword123'
+	"db_host": "",
+	"db_db": "search",
+	"db_user": "search",
+	"db_pass": "searchpassword123"
 }
