@@ -158,6 +158,11 @@ Resources:
           DB_USER: search
           DB_PASS: searchpassword123
       Events:
+        RootEventSource:
+          Type: Api
+          Properties:
+            Path: /
+            Method: ANY
         ApiEventSource:
           Type: Api
           Properties:
