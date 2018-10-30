@@ -13,11 +13,6 @@ Parameters:
     Type: String
     Description: Tools bucket
 
-Globals:
-  Api:
-    BinaryMediaTypes:
-      - "*~1*"
-
 Resources:
   RDSDBClusterParameterGroup:
     Type: AWS::RDS::DBClusterParameterGroup
