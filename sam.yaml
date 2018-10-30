@@ -16,7 +16,7 @@ Parameters:
 Globals:
   Api:
     BinaryMediaTypes:
-      - "*~1*"
+      - "*~123*"
 
 Resources:
   RDSDBClusterParameterGroup:
