@@ -4,7 +4,7 @@ var router = express.Router();
 var search = require('../models/search');
 
 router.get('/', function (req, res, next) {
-	res.render('index', {title: 'Search'});
+	res.render('search', {title: 'Search'});
 });
 
 module.exports = router;
