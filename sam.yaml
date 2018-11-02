@@ -26,6 +26,10 @@ Resources:
       Family: aurora5.6
       Parameters:
         time_zone: US/Eastern
+        character_set_database: utf8mb4
+        collation_database: utf8mb4_general_ci
+        character_set_client: utf8mb4
+        character_set_results: utf8mb4
 
   RDSCluster:
     Type: "AWS::RDS::DBCluster"

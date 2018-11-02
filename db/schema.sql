@@ -1,5 +1,7 @@
 #DROP TABLE IF EXISTS pages;
 
+#ALTER DATABASE search CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
 CREATE TABLE IF NOT EXISTS pages (
   page_id INT AUTO_INCREMENT,
   url TEXT NOT NULL,
