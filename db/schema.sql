@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS pages (
   FULLTEXT ux (url),
   FULLTEXT tx (title),
   FULLTEXT dx (description),
+  FULLTEXT txdx (title, description),
   PRIMARY KEY (page_id)
 );
 
