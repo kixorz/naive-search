@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Naive search results
+  if results.length
+    ul
+      each result in results
+        li
+          h2= result.title
+          a(href=result.url)= result.url
+          p= result.description
+  else
+    h2 No results

@@ -6,3 +6,20 @@ body {
 a {
   color: #00B7FF;
 }
+
+li {
+  list-style: none;
+}
+
+h2 {
+  color: blue;
+  margin-bottom: 5px;
+}
+
+a {
+  color: green;
+}
+
+p {
+  margin-top: 5px;
+}

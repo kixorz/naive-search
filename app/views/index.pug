@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Welcome to Naive search!
+  p This project demonstrates use of Amazon Aurora and integration of various AWS services.
 
   form(action='search')
-    input(type='text', name='query')
+    input(type='text', placeholder='Search Query', name='query')
     input(type='submit')

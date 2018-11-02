@@ -1,6 +1,19 @@
 var connection = require('../db');
 
-connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
-	if (err) throw err;
-	console.info('The solution is: ', rows[0].solution);
-});
+var methods = {};
+
+methods.query = function (query, offset, callback) {
+	connection.query(
+		'SELECT * FROM pages WHERE MATCH (title) AGAINST (? IN BOOLEAN MODE) LIMIT 10 OFFSET ?',
+		[query, offset],
+		function (err, rows, fields) {
+			if (err) {
+				console.error('Search failed:', err);
+				callback(err);
+			} else {
+				callback(null, rows);
+			}
+		});
+};
+
+module.exports = methods;
