@@ -41,3 +41,17 @@ mysql --user=search --password=searchpassword123 --host=sr1x44e9anx4ewu.cgec7ucn
 curl http://169.254.169.254/latest/user-data > test
 
 first two batches give 80625 records
+
+
+SHOW VARIABLES LIKE 'character_set%';
+SHOW GLOBAL VARIABLES WHERE Variable_name LIKE 'character\_set\_%' OR Variable_name LIKE 'collation%';
+
+
+SHOW INDEX FROM pages;
+
+SELECT count(*) FROM pages;
+SELECT * FROM pages LIMIT 1000;
+
+SELECT * FROM pages WHERE MATCH (title) AGAINST ('serverless' IN BOOLEAN MODE) LIMIT 10;
+
+SET NAMES UTF8;
