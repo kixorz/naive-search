@@ -11,9 +11,9 @@ block content
           p= result.description
 
     if typeof prev !== 'undefined'
-      a(href='/search?query=' + query + '&offset=' + prev) Previous page
+      a(href='search?query=' + query + '&offset=' + prev) Previous page
       |
     if typeof next !== 'undefined'
-      a(href='/search?query=' + query + '&offset=' + next) Next page
+      a(href='search?query=' + query + '&offset=' + next) Next page
   else
     h2 No results
