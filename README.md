@@ -5,7 +5,7 @@ Application demonstrates the use of AWS Aurora and Serverless application model.
 
 ## The Common crawl data
 
-The application extracts and ingests data from the Common Crawl dataset. Custom tool "warsql" 
+The application extracts and ingests data from the Common Crawl dataset using custom tool "warsql". 
 
 https://registry.opendata.aws/commoncrawl/
 
