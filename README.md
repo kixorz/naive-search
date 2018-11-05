@@ -22,4 +22,4 @@ https://registry.opendata.aws/commoncrawl/
 * Find URL in parameters of the `Search-Stack-Dev` stack
 * Visit the URL and see the application running
 
-Created for Aurora Hackathon 2018.
+Created for the Aurora Hackathon 2018.
