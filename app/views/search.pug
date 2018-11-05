@@ -9,5 +9,11 @@ block content
           h2= result.title
           a(href=result.url)= result.url
           p= result.description
+
+    if typeof prev !== 'undefined'
+      a(href='/search?query=' + query + '&offset=' + prev) Previous page
+      |
+    if typeof next !== 'undefined'
+      a(href='/search?query=' + query + '&offset=' + next) Next page
   else
     h2 No results

@@ -1,14 +1,34 @@
 var express = require('express');
 var router = express.Router();
-
 var search = require('../models/search');
 
 router.get('/', function (req, res, next) {
-	search.query(req.query['query'], 0, function (error, results) {
+	var query = req.query['query'];
+	var limit = 10;
+	var offset = Math.max(parseInt(req.query['offset'], 10), 0);
+	search.query(query, limit, offset, function (error, results) {
 		if (error) {
-			res.render('error', {status: 500});
+			res.render('error', {
+				error: {
+					status: 500,
+					message: 'Search failed'
+				}
+			});
 		} else {
-			res.render('search', {results: results});
+			var next;
+			if(results.length == limit) {
+				next = offset + limit;
+			}
+			var prev;
+			if(offset > 0) {
+				prev = offset - limit;
+			}
+			res.render('search', {
+				query: query,
+				next: next,
+				prev: prev,
+				results: results
+			});
 		}
 	});
 });
