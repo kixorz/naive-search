@@ -1,8 +1,11 @@
 # Naive Search
 
-Demonstrates use of AWS Aurora and Serverless application model.
+Search the web using the Common Crawl dataset!
+Application demonstrates the use of AWS Aurora and Serverless application model.
 
 ## The Common crawl data
+
+The application extracts and ingests data from the Common Crawl dataset. Custom tool "warsql" 
 
 https://registry.opendata.aws/commoncrawl/
 
