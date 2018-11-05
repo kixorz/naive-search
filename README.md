@@ -1,7 +1,7 @@
 # Naive Search
 
 Search the web using the Common Crawl dataset!
-Application demonstrates the use of AWS Aurora and Serverless application model.
+Application demonstrates the use of AWS Aurora MySQL and the Serverless application model.
 
 ## The Common crawl data
 
